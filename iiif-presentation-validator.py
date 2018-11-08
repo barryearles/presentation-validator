@@ -6,6 +6,7 @@ import argparse
 import codecs
 import json
 import os
+import ssl
 from gzip import GzipFile
 from io import BytesIO
 
@@ -37,9 +38,10 @@ class Validator(object):
         """Fetch manifest from url."""
         req = Request(url)
         req.add_header('Accept-Encoding', 'gzip')
+        context = ssl._create_unverified_context()
 
         try:
-            wh = urlopen(req)
+            wh = urlopen(req, context=context)
         except HTTPError as wh:
             pass
         data = wh.read()
