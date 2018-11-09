@@ -41,7 +41,7 @@ class Validator(object):
         context = ssl._create_unverified_context()
 
         try:
-            wh = urlopen(req, context=context)
+            wh = urlopen(req, timeout=3, context=context)
         except HTTPError as wh:
             pass
         data = wh.read()
